@@ -34,7 +34,6 @@ service.interceptors.request.use(config => {
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     // let url = config.url + '?' + tansParams(config.params); // 加密数据
-    console.log("---------"+ encode(tansParams(config.params)))
     let url = config.url + '?' + encode(tansParams(config.params)); // 加密数据
     url = url.slice(0, -1);
     config.params = {};
