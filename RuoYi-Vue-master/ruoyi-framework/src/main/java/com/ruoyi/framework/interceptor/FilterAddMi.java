@@ -46,18 +46,14 @@ public class FilterAddMi implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
-        log.info("-------{}",parameterMap);
+        log.info("-------{}", parameterMap);
         String str = "";
-        if ("GET".equals(httpServletRequest.getMethod())) {
-            str = httpServletRequest.getQueryString();
-        } else {
-            String nowParams = "";
-            if (servletRequest instanceof RepeatedlyRequestWrapper) {
-                RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) servletRequest;
-                nowParams = HttpHelper.getBodyString(repeatedlyRequest);
-                JSONObject parse = JSONObject.parse(nowParams);
-                str = parse.getString("str");
-            }
+        String nowParams = "";
+        if (servletRequest instanceof RepeatedlyRequestWrapper) {
+            RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) servletRequest;
+            nowParams = HttpHelper.getBodyString(repeatedlyRequest);
+            JSONObject parse = JSONObject.parse(nowParams);
+            str = parse.getString("str");
         }
         BodyRequestWrapper parameterRequestWrapper = new BodyRequestWrapper(httpServletRequest);
         if (!ObjectUtils.isEmpty(str)) {
@@ -76,7 +72,7 @@ public class FilterAddMi implements Filter {
 class BodyRequestWrapper extends HttpServletRequestWrapper {
 
 
-    private byte[] requestBody =null;
+    private byte[] requestBody = null;
 
     public BodyRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
@@ -116,7 +112,7 @@ class BodyRequestWrapper extends HttpServletRequestWrapper {
         return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
-    public void setBody(byte[] requestBody){
+    public void setBody(byte[] requestBody) {
         this.requestBody = requestBody;
     }
 }
