@@ -21,7 +21,7 @@
             <text class="text">用户管理</text>
           </view>
         </uni-grid-item>
-        <uni-grid-item>
+<!--        <uni-grid-item>
           <view class="grid-item-box">
             <uni-icons type="staff-filled" size="30"></uni-icons>
             <text class="text">角色管理</text>
@@ -68,7 +68,7 @@
             <uni-icons type="wallet-filled" size="30"></uni-icons>
             <text class="text">日志管理</text>
           </view>
-        </uni-grid-item>
+        </uni-grid-item> -->
       </uni-grid>
     </view>
   </view>
