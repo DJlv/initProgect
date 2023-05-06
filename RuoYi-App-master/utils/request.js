@@ -3,6 +3,7 @@ import config from '@/config'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { toast, showConfirm, tansParams } from '@/utils/common'
+import Base64 from 'base-64';
 
 let timeout = 10000
 const baseUrl = config.baseUrl
@@ -16,11 +17,16 @@ const request = config => {
   }
   // get请求映射params参数
   if (config.params) {
-    let url = config.url + '?' + tansParams(config.params)
+	let url = config.url + '?' + Base64.encode(tansParams(config.params));
+    // let url = config.url + '?' + tansParams(config.params)
     url = url.slice(0, -1)
     config.url = url
   }
   return new Promise((resolve, reject) => {
+  var tx = {
+      str: Base64.encode(typeof config.data === 'object' ? JSON.stringify(config.data) : config.data).toString()
+  }
+  config.data = tx
     uni.request({
         method: config.method || 'get',
         timeout: config.timeout ||  timeout,
