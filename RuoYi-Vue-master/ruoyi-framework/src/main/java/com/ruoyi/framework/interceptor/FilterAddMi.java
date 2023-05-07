@@ -45,11 +45,11 @@ public class FilterAddMi implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
 
-        List<String> strings = Arrays.asList("/system/user/profile/avatar", "/dev-api/captchaImage");
+        List<String> strings = Arrays.asList("/system/user/profile/avatar", "/dev-api/captchaImage","/dev-apiundefined");
         // 过滤提交图片url
         if ("PUT".equals(httpServletRequest.getMethod()) || "DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())) {
             filterChain.doFilter(servletRequest, servletResponse);
-        }
+        } else
 
         if ("GET".equals(httpServletRequest.getMethod())) {
             BodyRequestWrapperPloader bodyRequestWrapperPloader = new BodyRequestWrapperPloader(httpServletRequest);
