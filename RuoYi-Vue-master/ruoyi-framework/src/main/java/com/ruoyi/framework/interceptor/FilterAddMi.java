@@ -49,7 +49,7 @@ public class FilterAddMi implements Filter {
 
         List<String> strings = Arrays.asList("/system/user/profile/avatar","/dev-api/captchaImage");
         // 过滤提交图片url
-        if(strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())){
+        if("PUT".equals(httpServletRequest.getMethod()) || "DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())){
             filterChain.doFilter(servletRequest, servletResponse);
         }
 
