@@ -3,7 +3,7 @@ import { Notification, MessageBox, Message, Loading } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
-import { tansParams, blobValidate } from "@/utils/ruoyi";
+import { tansParams, blobValidate, tansParamsEncode} from "@/utils/ruoyi";
 import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
 import { Base64 } from 'js-base64';
@@ -33,8 +33,16 @@ service.interceptors.request.use(config => {
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
+    if(config.url.endsWith("/system/user/profile/avatar") || config.url.endsWith("/dev-api/captchaImage")) { // 过滤get图片提交
+      var term = tansParams(config.params)
+    } else {
+      var term = tansParamsEncode(config.params)
+    }
+    if("image/png" === axios.defaults.headers['Content-Type']) {
+      var term = tansParams(config.params)
+    }
     // let url = config.url + '?' + tansParams(config.params); // 加密数据
-    let url = config.url + '?' + encode(tansParams(config.params)); // 加密数据
+    let url = config.url + '?' + term; // 加密数据
     url = url.slice(0, -1);
     config.params = {};
     config.url = url;
@@ -45,12 +53,13 @@ service.interceptors.request.use(config => {
       data: typeof config.data === 'object' ? JSON.stringify(config.data) : config.data,
       time: new Date().getTime()
     }
-
-    var tx = {
-      str: encode(typeof config.data === 'object' ? JSON.stringify(config.data) : config.data).toString()
+    if(!config.url.endsWith("/system/user/profile/avatar")) { // 过滤post图片提交
+      var tx = {
+        str: encode(typeof config.data === 'object' ? JSON.stringify(config.data) : config.data).toString()
+      }
+      config.data = tx
     }
 
-    config.data = tx
     const sessionObj = cache.session.getJSON('sessionObj')
     if (sessionObj === undefined || sessionObj === null || sessionObj === '') {
       cache.session.setJSON('sessionObj', requestObj)
