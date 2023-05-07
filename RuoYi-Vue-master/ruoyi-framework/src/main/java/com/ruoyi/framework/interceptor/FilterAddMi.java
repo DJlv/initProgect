@@ -47,7 +47,7 @@ public class FilterAddMi implements Filter {
 
         List<String> strings = Arrays.asList("/system/user/profile/avatar", "/dev-api/captchaImage","/dev-apiundefined");
         // 过滤提交图片url
-        if ("PUT".equals(httpServletRequest.getMethod()) || "DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())) {
+        if ("DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else
 
@@ -68,7 +68,7 @@ public class FilterAddMi implements Filter {
                 bodyRequestWrapperPloader.addParameter(key, objectObjectHashMap.get("str"));
             });
             filterChain.doFilter(bodyRequestWrapperPloader, servletResponse);
-        } else if ("POST".equals(httpServletRequest.getMethod())) {             // Content-Type'] = 'application/json;charset=utf-8'
+        } else if ("PUT".equals(httpServletRequest.getMethod()) || "POST".equals(httpServletRequest.getMethod())) {             // Content-Type'] = 'application/json;charset=utf-8'
             BodyRequestWrapperJson parameterRequestWrapperJson = new BodyRequestWrapperJson(httpServletRequest);
             if (servletRequest instanceof RepeatedlyRequestWrapper) {
                 RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) servletRequest;
