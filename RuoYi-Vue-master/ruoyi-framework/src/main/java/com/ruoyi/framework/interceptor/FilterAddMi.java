@@ -5,7 +5,6 @@ import com.alibaba.fastjson2.JSONObject;
 import com.ruoyi.common.filter.RepeatedlyRequestWrapper;
 import com.ruoyi.common.utils.http.HttpHelper;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.JsonAggregateFunction;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 @Slf4j
 @Component
@@ -47,30 +45,30 @@ public class FilterAddMi implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
 
-        List<String> strings = Arrays.asList("/system/user/profile/avatar","/dev-api/captchaImage");
+        List<String> strings = Arrays.asList("/system/user/profile/avatar", "/dev-api/captchaImage");
         // 过滤提交图片url
-        if("PUT".equals(httpServletRequest.getMethod()) || "DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())){
+        if ("PUT".equals(httpServletRequest.getMethod()) || "DELETE".equals(httpServletRequest.getMethod()) || strings.contains(httpServletRequest.getRequestURI()) || "image/png".equals(httpServletRequest.getContentType())) {
             filterChain.doFilter(servletRequest, servletResponse);
         }
 
-        if("GET".equals(httpServletRequest.getMethod())){
+        if ("GET".equals(httpServletRequest.getMethod())) {
             BodyRequestWrapperPloader bodyRequestWrapperPloader = new BodyRequestWrapperPloader(httpServletRequest);
             Map<String, String[]> parameterMap1 = bodyRequestWrapperPloader.getParameterMap();
-            log.info("get---{}",parameterMap1);
+            log.info("get---{}", parameterMap1);
 
-            parameterMap1.forEach((key,value)-> {
+            parameterMap1.forEach((key, value) -> {
                 HashMap<String, String> objectObjectHashMap = new HashMap<>();
                 for (String valuevo : value) {
                     byte[] decode = Base64.getDecoder().decode(valuevo);
-                    String  strvo = new String(decode);
-                    log.info("解密----{}",strvo);
-                    objectObjectHashMap.put("str",strvo);
+                    String strvo = new String(decode);
+                    log.info("解密----{}", strvo);
+                    objectObjectHashMap.put("str", strvo);
                 }
                 bodyRequestWrapperPloader.nullstr(key);
-                bodyRequestWrapperPloader.addParameter(key,objectObjectHashMap.get("str"));
+                bodyRequestWrapperPloader.addParameter(key, objectObjectHashMap.get("str"));
             });
             filterChain.doFilter(bodyRequestWrapperPloader, servletResponse);
-        } else if("POST".equals(httpServletRequest.getMethod())) {             // Content-Type'] = 'application/json;charset=utf-8'
+        } else if ("POST".equals(httpServletRequest.getMethod())) {             // Content-Type'] = 'application/json;charset=utf-8'
             BodyRequestWrapperJson parameterRequestWrapperJson = new BodyRequestWrapperJson(httpServletRequest);
             if (servletRequest instanceof RepeatedlyRequestWrapper) {
                 RepeatedlyRequestWrapper repeatedlyRequest = (RepeatedlyRequestWrapper) servletRequest;
@@ -161,10 +159,12 @@ class BodyRequestWrapperPloader extends HttpServletRequestWrapper {
     public Map<String, String[]> getParameterMap() {
         return Collections.unmodifiableMap(modifiedParameters);
     }
+
     public void nullstr(String str) {
         String[] strings = null;
-        modifiedParameters.put(str,strings) ;
+        modifiedParameters.put(str, strings);
     }
+
     @Override
     public Enumeration<String> getParameterNames() {
         return Collections.enumeration(modifiedParameters.keySet());
