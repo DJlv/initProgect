@@ -39,7 +39,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 查询预检修列表
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:list')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:list')")
     @GetMapping("/list")
     public TableDataInfo list(CusPrerepair cusPrerepair)
     {
@@ -51,7 +51,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 导出预检修列表
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:export')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:export')")
     @Log(title = "预检修", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CusPrerepair cusPrerepair)
@@ -64,7 +64,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 获取预检修详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:query')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:query')")
     @GetMapping(value = "/{overhaulId}")
     public AjaxResult getInfo(@PathVariable("overhaulId") Long overhaulId)
     {
@@ -74,7 +74,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 新增预检修
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:add')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:add')")
     @Log(title = "预检修", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CusPrerepair cusPrerepair)
@@ -85,7 +85,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 修改预检修
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:edit')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:edit')")
     @Log(title = "预检修", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CusPrerepair cusPrerepair)
@@ -96,7 +96,7 @@ public class CusPrerepairController extends BaseController
     /**
      * 删除预检修
      */
-    @PreAuthorize("@ss.hasPermi('system:prerepair:remove')")
+    @PreAuthorize("@ss.hasPermi('prerepair:prerepair:remove')")
     @Log(title = "预检修", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{overhaulIds}")
     public AjaxResult remove(@PathVariable Long[] overhaulIds)

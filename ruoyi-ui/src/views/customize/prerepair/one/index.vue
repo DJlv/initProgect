@@ -87,7 +87,7 @@
             icon="el-icon-plus"
             size="mini"
             @click="handleAdd"
-            v-hasPermi="['system:prerepair:add']"
+            v-hasPermi="['prerepair:prerepair:add']"
         >新增
         </el-button>
       </el-col>
@@ -99,7 +99,7 @@
             size="mini"
             :disabled="single"
             @click="handleUpdate"
-            v-hasPermi="['system:prerepair:edit']"
+            v-hasPermi="['prerepair:prerepair:edit']"
         >修改
         </el-button>
       </el-col>
@@ -111,7 +111,7 @@
             size="mini"
             :disabled="multiple"
             @click="handleDelete"
-            v-hasPermi="['system:prerepair:remove']"
+            v-hasPermi="['prerepair:prerepair:remove']"
         >删除
         </el-button>
       </el-col>
@@ -122,7 +122,7 @@
             icon="el-icon-download"
             size="mini"
             @click="handleExport"
-            v-hasPermi="['system:prerepair:export']"
+            v-hasPermi="['prerepair:prerepair:export']"
         >导出
         </el-button>
       </el-col>
@@ -165,7 +165,7 @@
               type="text"
               icon="el-icon-edit"
               @click="handleUpdate(scope.row)"
-              v-hasPermi="['system:prerepair:edit']"
+              v-hasPermi="['prerepair:prerepair:edit']"
           >修改
           </el-button>
           <el-button
@@ -173,7 +173,7 @@
               type="text"
               icon="el-icon-delete"
               @click="handleDelete(scope.row)"
-              v-hasPermi="['system:prerepair:remove']"
+              v-hasPermi="['prerepair:prerepair:remove']"
           >删除
           </el-button>
         </template>
