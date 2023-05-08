@@ -33,7 +33,7 @@ service.interceptors.request.use(config => {
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
-    if(config.url.endsWith("/system/user/profile/avatar") || config.url.endsWith("/dev-api/captchaImage") || config.url.endsWith("/dev-apiundefined")) { // 过滤get图片提交
+    if(config.url.endsWith("/system/user/profile/avatar") || config.url.endsWith("/dev-api/captchaImage") || config.url.endsWith("/dev-apiundefined") || config.url.endsWith("/tool/gen/batchGenCode")) { // 过滤get图片提交
       var term = tansParams(config.params)
     } else {
       var term = tansParamsEncode(config.params)

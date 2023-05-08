@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dcits.mapper.CusPrerepairMapper">
+    
+    <resultMap type="CusPrerepair" id="CusPrerepairResult">
+        <result property="overhaulId"    column="overhaul_id"    />
+        <result property="inspectionArea"    column="inspection_area"    />
+        <result property="maintenanceContent"    column="maintenance_content"    />
+        <result property="maintenanceCondition"    column="maintenance_condition"    />
+        <result property="totalDays"    column="total_days"    />
+        <result property="lastInspectionTime"    column="last_inspection_time"    />
+        <result property="inspectionRemarks"    column="inspection_remarks"    />
+        <result property="maintenanceMan"    column="maintenance_man"    />
+        <result property="problem"    column="problem"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="weeks"    column="weeks"    />
+    </resultMap>
+
+    <sql id="selectCusPrerepairVo">
+        select overhaul_id, inspection_area, maintenance_content, maintenance_condition, total_days, last_inspection_time, inspection_remarks, maintenance_man, problem, del_flag, create_by, create_time, update_by, update_time, weeks from cus_prerepair
+    </sql>
+
+    <select id="selectCusPrerepairList" parameterType="CusPrerepair" resultMap="CusPrerepairResult">
+        <include refid="selectCusPrerepairVo"/>
+        <where>  
+            <if test="inspectionArea != null  and inspectionArea != ''"> and inspection_area = #{inspectionArea}</if>
+            <if test="maintenanceContent != null  and maintenanceContent != ''"> and maintenance_content = #{maintenanceContent}</if>
+            <if test="maintenanceCondition != null  and maintenanceCondition != ''"> and maintenance_condition = #{maintenanceCondition}</if>
+            <if test="totalDays != null "> and total_days = #{totalDays}</if>
+            <if test="lastInspectionTime != null "> and last_inspection_time = #{lastInspectionTime}</if>
+            <if test="inspectionRemarks != null  and inspectionRemarks != ''"> and inspection_remarks = #{inspectionRemarks}</if>
+            <if test="maintenanceMan != null  and maintenanceMan != ''"> and maintenance_man = #{maintenanceMan}</if>
+            <if test="problem != null  and problem != ''"> and problem = #{problem}</if>
+            <if test="weeks != null "> and weeks = #{weeks}</if>
+        </where>
+    </select>
+    
+    <select id="selectCusPrerepairByOverhaulId" parameterType="Long" resultMap="CusPrerepairResult">
+        <include refid="selectCusPrerepairVo"/>
+        where overhaul_id = #{overhaulId}
+    </select>
+        
+    <insert id="insertCusPrerepair" parameterType="CusPrerepair" useGeneratedKeys="true" keyProperty="overhaulId">
+        insert into cus_prerepair
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inspectionArea != null and inspectionArea != ''">inspection_area,</if>
+            <if test="maintenanceContent != null and maintenanceContent != ''">maintenance_content,</if>
+            <if test="maintenanceCondition != null and maintenanceCondition != ''">maintenance_condition,</if>
+            <if test="totalDays != null">total_days,</if>
+            <if test="lastInspectionTime != null">last_inspection_time,</if>
+            <if test="inspectionRemarks != null">inspection_remarks,</if>
+            <if test="maintenanceMan != null">maintenance_man,</if>
+            <if test="problem != null">problem,</if>
+            <if test="delFlag != null and delFlag != ''">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="weeks != null">weeks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inspectionArea != null and inspectionArea != ''">#{inspectionArea},</if>
+            <if test="maintenanceContent != null and maintenanceContent != ''">#{maintenanceContent},</if>
+            <if test="maintenanceCondition != null and maintenanceCondition != ''">#{maintenanceCondition},</if>
+            <if test="totalDays != null">#{totalDays},</if>
+            <if test="lastInspectionTime != null">#{lastInspectionTime},</if>
+            <if test="inspectionRemarks != null">#{inspectionRemarks},</if>
+            <if test="maintenanceMan != null">#{maintenanceMan},</if>
+            <if test="problem != null">#{problem},</if>
+            <if test="delFlag != null and delFlag != ''">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="weeks != null">#{weeks},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCusPrerepair" parameterType="CusPrerepair">
+        update cus_prerepair
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inspectionArea != null and inspectionArea != ''">inspection_area = #{inspectionArea},</if>
+            <if test="maintenanceContent != null and maintenanceContent != ''">maintenance_content = #{maintenanceContent},</if>
+            <if test="maintenanceCondition != null and maintenanceCondition != ''">maintenance_condition = #{maintenanceCondition},</if>
+            <if test="totalDays != null">total_days = #{totalDays},</if>
+            <if test="lastInspectionTime != null">last_inspection_time = #{lastInspectionTime},</if>
+            <if test="inspectionRemarks != null">inspection_remarks = #{inspectionRemarks},</if>
+            <if test="maintenanceMan != null">maintenance_man = #{maintenanceMan},</if>
+            <if test="problem != null">problem = #{problem},</if>
+            <if test="delFlag != null and delFlag != ''">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="weeks != null">weeks = #{weeks},</if>
+        </trim>
+        where overhaul_id = #{overhaulId}
+    </update>
+
+    <delete id="deleteCusPrerepairByOverhaulId" parameterType="Long">
+        delete from cus_prerepair where overhaul_id = #{overhaulId}
+    </delete>
+
+    <delete id="deleteCusPrerepairByOverhaulIds" parameterType="String">
+        delete from cus_prerepair where overhaul_id in 
+        <foreach item="overhaulId" collection="array" open="(" separator="," close=")">
+            #{overhaulId}
+        </foreach>
+    </delete>
+</mapper>

@@ -61,6 +61,11 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
+        <!-- 业务-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-controller</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

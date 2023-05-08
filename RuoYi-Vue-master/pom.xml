@@ -169,6 +169,13 @@
                 <artifactId>ruoyi-common</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+
+            <!-- 业务模块-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-controller</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
 <!--            &lt;!&ndash;【工具】lombok &ndash;&gt;-->
 <!--            <dependency>-->
 <!--                <groupId>org.projectlombok</groupId>-->
@@ -186,6 +193,7 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-controller</module>
     </modules>
     <packaging>pom</packaging>
 
