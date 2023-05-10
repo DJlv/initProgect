@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dcits.mapper.CusHouseMapper">
+    
+    <resultMap type="CusHouse" id="CusHouseResult">
+        <result property="id"    column="id"    />
+        <result property="warnings"    column="warnings"    />
+        <result property="storageLocation"    column="storage_location"    />
+        <result property="materialName"    column="material_name"    />
+        <result property="materialNumber"    column="material_number"    />
+        <result property="specificationModel"    column="specification_model"    />
+        <result property="brand"    column="brand"    />
+        <result property="unit"    column="unit"    />
+        <result property="countQuantity"    column="count_quantity"    />
+        <result property="status"    column="status"    />
+        <result property="storageLocationDescription"    column="storage_location_description"    />
+        <result property="safetyStock"    column="safety_stock"    />
+        <result property="shelf"    column="shelf"    />
+        <result property="shelfCount"    column="shelf_count"    />
+        <result property="importNot"    column="import_not"    />
+        <result property="price"    column="price"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectCusHouseVo">
+        select id, warnings, storage_location, material_name, material_number, specification_model, brand, unit, count_quantity, status, storage_location_description, safety_stock, shelf, shelf_count, import_not, price, create_by, create_time, update_by, update_time from cus_house
+    </sql>
+
+    <select id="selectCusHouseList" parameterType="CusHouse" resultMap="CusHouseResult">
+        <include refid="selectCusHouseVo"/>
+        <where>  
+            <if test="warnings != null  and warnings != ''"> and warnings = #{warnings}</if>
+            <if test="storageLocation != null  and storageLocation != ''"> and storage_location = #{storageLocation}</if>
+            <if test="materialName != null  and materialName != ''"> and material_name like concat('%', #{materialName}, '%')</if>
+            <if test="materialNumber != null  and materialNumber != ''"> and material_number = #{materialNumber}</if>
+            <if test="specificationModel != null  and specificationModel != ''"> and specification_model = #{specificationModel}</if>
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="countQuantity != null  and countQuantity != ''"> and count_quantity = #{countQuantity}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="storageLocationDescription != null  and storageLocationDescription != ''"> and storage_location_description = #{storageLocationDescription}</if>
+            <if test="safetyStock != null  and safetyStock != ''"> and safety_stock = #{safetyStock}</if>
+            <if test="shelf != null  and shelf != ''"> and shelf = #{shelf}</if>
+            <if test="shelfCount != null  and shelfCount != ''"> and shelf_count = #{shelfCount}</if>
+            <if test="importNot != null  and importNot != ''"> and import_not = #{importNot}</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectCusHouseById" parameterType="Long" resultMap="CusHouseResult">
+        <include refid="selectCusHouseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCusHouse" parameterType="CusHouse">
+        insert into cus_house
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="warnings != null and warnings != ''">warnings,</if>
+            <if test="storageLocation != null and storageLocation != ''">storage_location,</if>
+            <if test="materialName != null and materialName != ''">material_name,</if>
+            <if test="materialNumber != null">material_number,</if>
+            <if test="specificationModel != null">specification_model,</if>
+            <if test="brand != null">brand,</if>
+            <if test="unit != null">unit,</if>
+            <if test="countQuantity != null">count_quantity,</if>
+            <if test="status != null">status,</if>
+            <if test="storageLocationDescription != null">storage_location_description,</if>
+            <if test="safetyStock != null">safety_stock,</if>
+            <if test="shelf != null">shelf,</if>
+            <if test="shelfCount != null">shelf_count,</if>
+            <if test="importNot != null">import_not,</if>
+            <if test="price != null">price,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="warnings != null and warnings != ''">#{warnings},</if>
+            <if test="storageLocation != null and storageLocation != ''">#{storageLocation},</if>
+            <if test="materialName != null and materialName != ''">#{materialName},</if>
+            <if test="materialNumber != null">#{materialNumber},</if>
+            <if test="specificationModel != null">#{specificationModel},</if>
+            <if test="brand != null">#{brand},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="countQuantity != null">#{countQuantity},</if>
+            <if test="status != null">#{status},</if>
+            <if test="storageLocationDescription != null">#{storageLocationDescription},</if>
+            <if test="safetyStock != null">#{safetyStock},</if>
+            <if test="shelf != null">#{shelf},</if>
+            <if test="shelfCount != null">#{shelfCount},</if>
+            <if test="importNot != null">#{importNot},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCusHouse" parameterType="CusHouse">
+        update cus_house
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="warnings != null and warnings != ''">warnings = #{warnings},</if>
+            <if test="storageLocation != null and storageLocation != ''">storage_location = #{storageLocation},</if>
+            <if test="materialName != null and materialName != ''">material_name = #{materialName},</if>
+            <if test="materialNumber != null">material_number = #{materialNumber},</if>
+            <if test="specificationModel != null">specification_model = #{specificationModel},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="countQuantity != null">count_quantity = #{countQuantity},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="storageLocationDescription != null">storage_location_description = #{storageLocationDescription},</if>
+            <if test="safetyStock != null">safety_stock = #{safetyStock},</if>
+            <if test="shelf != null">shelf = #{shelf},</if>
+            <if test="shelfCount != null">shelf_count = #{shelfCount},</if>
+            <if test="importNot != null">import_not = #{importNot},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCusHouseById" parameterType="Long">
+        delete from cus_house where id = #{id}
+    </delete>
+
+    <delete id="deleteCusHouseByIds" parameterType="String">
+        delete from cus_house where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
