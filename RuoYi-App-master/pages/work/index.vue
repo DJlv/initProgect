@@ -1,7 +1,7 @@
 <template>
   <view class="work-container">
     <!-- 轮播图 -->
-    <uni-swiper-dot class="uni-swiper-dot-box" :info="data" :current="current" field="content">
+<!--    <uni-swiper-dot class="uni-swiper-dot-box" :info="data" :current="current" field="content">
       <swiper class="swiper-box" :current="swiperDotIndex" @change="changeSwiper">
         <swiper-item v-for="(item, index) in data" :key="index">
           <view class="swiper-item" @click="clickBannerItem(item)">
@@ -9,25 +9,31 @@
           </view>
         </swiper-item>
       </swiper>
-    </uni-swiper-dot>
+    </uni-swiper-dot> -->
 
     <!-- 宫格组件 -->
-    <uni-section title="系统管理" type="line"></uni-section>
+<!--    <uni-section title="系统管理" type="line"></uni-section>
     <view class="grid-body">
-      <uni-grid :column="4" :showBorder="false" @change="changeGrid">
+      <uni-grid :column="4" :showBorder="false">
         <uni-grid-item>
           <view class="grid-item-box">
             <uni-icons type="person-filled" size="30"></uni-icons>
             <text class="text">用户管理</text>
           </view>
-        </uni-grid-item>
-<!--        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="staff-filled" size="30"></uni-icons>
-            <text class="text">角色管理</text>
+        </uni-grid-item> -->
+		
+		  
+     <view class="menu-list">
+        <view class="list-cell list-cell-arrow" @click="handleToEditInfo">
+          <view class="menu-item-box">
+            <!-- <view class="iconfont icon-user menu-icon"></view> -->
+			<uni-icons type="star-filled" size="30"></uni-icons>
+
+            <view>备件管理</view>
           </view>
-        </uni-grid-item>
-        <uni-grid-item>
+        </view>
+      </view>
+<!--        <uni-grid-item>
           <view class="grid-item-box">
             <uni-icons type="color" size="30"></uni-icons>
             <text class="text">菜单管理</text>
@@ -75,33 +81,18 @@
 </template>
 
 <script>
+import storage from '@/utils/storage'
+	
   export default {
     data() {
       return {
-        current: 0,
-        swiperDotIndex: 0,
-        data: [{
-            image: '/static/images/banner/banner01.jpg'
-          },
-          {
-            image: '/static/images/banner/banner02.jpg'
-          },
-          {
-            image: '/static/images/banner/banner03.jpg'
-          }
-        ]
+        name: ''
       }
     },
     methods: {
-      clickBannerItem(item) {
-        console.info(item)
-      },
-      changeSwiper(e) {
-        this.current = e.detail.current
-      },
-      changeGrid(e) {
-        this.$modal.showToast('模块建设中~')
-      }
+	   handleToEditInfo() {
+	    this.$tab.navigateTo('/pages/work/house/list/index')
+	   },
     }
   }
 </script>

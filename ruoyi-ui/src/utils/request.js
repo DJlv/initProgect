@@ -6,7 +6,6 @@ import errorCode from '@/utils/errorCode'
 import { tansParams, blobValidate, tansParamsEncode} from "@/utils/ruoyi";
 import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
-import { Base64 } from 'js-base64';
 import { encode, decode } from 'js-base64';
 
 let downloadLoadingInstance;

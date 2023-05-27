@@ -2,7 +2,7 @@
   <view class="content">
     <image class="logo" src="@/static/logo.png"></image>
     <view class="text-area">
-      <text class="title">Hello RuoYi</text>
+      <text class="title">Hello</text>
     </view>
   </view>
 </template>
@@ -38,6 +38,6 @@
 
   .title {
     font-size: 36rpx;
-    color: #8f8f94;
+    color: #fff;
   }
 </style>
