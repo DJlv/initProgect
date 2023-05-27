@@ -1,11 +1,18 @@
 package dcits.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import dcits.entery.CusHouse;
 import dcits.interfaces.ICusHouseService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +54,36 @@ public class CusHouseController extends BaseController
         List<CusHouse> list = cusHouseService.selectCusHouseList(cusHouse);
         return getDataTable(list);
     }
+    /**
+     * 导入库房备件
+     */
+    @PreAuthorize("@ss.hasPermi('cus:house:import')")
+    @PostMapping("/import")
+    public AjaxResult imports(CusHouse cusHouse) throws Exception {
+        InputStream is = new FileInputStream(new File("C:\\Users\\12141\\Desktop\\s.xlsx"));
+        ExcelUtil<CusHouse> util = new ExcelUtil<CusHouse>(CusHouse.class);
+        List<CusHouse> userList = util.importExcel(is);
+        List<CusHouse> collect = userList.stream().filter(vo -> StringUtils.isNotEmpty(vo.getStorageLocation())).collect(Collectors.toList());
+        String message= "";
+        try {
+            for (CusHouse cusHouses : collect) {
+                CusHouse item = new CusHouse();
+                item.setStorageLocation(cusHouses.getStorageLocation());
+                item.setMaterialName(cusHouses.getMaterialName());
+                List<CusHouse> listItem = cusHouseService.selectCusHouseList(item);
 
+                if(ObjectUtils.isNotEmpty(listItem)){
+                    int update= cusHouseService.updateCusHouse(cusHouse);
+                } else {
+                    int insert = cusHouseService.insertCusHouse(cusHouses);
+                }
+            }
+            message ="导入成功";
+        } catch (Exception e) {
+            message ="导入失败";
+        }
+        return success(message);
+    }
     /**
      * 导出库房备件列表
      */

@@ -207,7 +207,6 @@ export function handleTree(data, id, parentId, children) {
 * @param {*} params  参数
 */
 export function tansParamsEncode(params) {
-  debugger
   let result = ''
   for (const propName of Object.keys(params)) {
     const value = params[propName];
