@@ -28,7 +28,6 @@
           <view class="menu-item-box">
             <!-- <view class="iconfont icon-user menu-icon"></view> -->
 			<uni-icons type="star-filled" size="30"></uni-icons>
-
             <view>备件管理</view>
           </view>
         </view>
